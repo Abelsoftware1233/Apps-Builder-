@@ -41,3 +41,21 @@ app.post('/convert-and-download', (req, res) => {
 });
 
 app.listen(3000, () => console.log("Chromebook Builder draait op poort 3000"));
+
+const { exec } = require('child_process');
+const path = require('path');
+const fs = require('fs');
+
+// Voeg deze route toe aan je bestaande server.js
+app.get('/download-apk/:folderName', (req, res) => {
+    const folderName = req.params.folderName;
+    // Pad naar de APK die Gradle heeft gebouwd
+    const apkPath = path.join(__dirname, 'mijn_apps', folderName, 'android', 'app', 'build', 'outputs', 'apk', 'debug', 'app-debug.apk');
+
+    if (fs.existsSync(apkPath)) {
+        res.download(apkPath, `${folderName}.apk`);
+    } else {
+        res.status(404).send("APK nog niet gebouwd. Open eerst Android Studio of draai ./gradlew assembleDebug");
+    }
+});
+
