@@ -1,31 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Echo App Converter</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Echo No-Server App Converter</title>
+    <style>
+        body { font-family: sans-serif; background: #121212; color: white; text-align: center; padding: 50px; }
+        .card { background: #1e1e1e; padding: 30px; border-radius: 15px; display: inline-block; width: 350px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        input { width: 90%; padding: 10px; margin: 10px 0; border-radius: 5px; border: none; }
+        button { width: 95%; padding: 12px; background: #00cf71; border: none; color: white; font-weight: bold; cursor: pointer; border-radius: 5px; }
+        #status { margin-top: 20px; color: #aaa; font-size: 14px; }
+        .icon-preview { width: 80px; height: 80px; border: 2px dashed #444; margin: 10px auto; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        img { max-width: 100%; }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Android App Converter</h1>
-        <p>Convert your GitHub Web Project to a Native Android APK</p>
-        
-        <div class="input-group">
-            <label for="github-url">GitHub Repository URL:</label>
-            <input type="url" id="github-url" placeholder="https://github.com/user/repo" required>
-        </div>
 
-        <div class="input-group">
-            <label for="app-icon">Select App Icon (PNG/JPG):</label>
-            <input type="file" id="app-icon" accept="image/*">
-            <div id="icon-preview"></div>
-        </div>
+<div class="card">
+    <h2>Echo App Geyser</h2>
+    <p>Zet GitHub om naar Android</p>
+    
+    <input type="url" id="github-link" placeholder="GitHub URL (bijv. https://...)">
+    <input type="text" id="app-name" placeholder="Naam van je App">
+    
+    <div class="icon-preview" id="preview">Icoon</div>
+    <input type="file" id="icon-input" accept="image/*">
 
-        <button id="convert-btn">Generate Android Project</button>
-        
-        <div id="status-log"></div>
-    </div>
-    <script src="script.js"></script>
+    <button onclick="generateApp()">Maak Android App</button>
+    
+    <div id="status"></div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
