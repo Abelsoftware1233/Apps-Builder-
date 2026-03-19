@@ -1,63 +1,44 @@
-// 1. Icoon Preview functionaliteit
+// Preview van icoon (Direct in de browser)
 document.getElementById('icon-input').onchange = function(evt) {
-    const file = evt.target.files[0];
+    const [file] = this.files;
     if (file) {
-        const preview = document.getElementById('preview');
-        // Maak een tijdelijke URL voor de afbeelding om te tonen
-        preview.innerHTML = `<img src="${URL.createObjectURL(file)}" style="max-width: 100%; border-radius: 10px;">`;
+        document.getElementById('preview').innerHTML = `<img src="${URL.createObjectURL(file)}" style="width:100%; border-radius:10px;">`;
     }
 };
 
-// 2. De Hoofdfunctie voor het bouwen van de app
 async function generateApp() {
     const url = document.getElementById('github-link').value;
     const name = document.getElementById('app-name').value;
-    const appId = document.getElementById('app-id').value; // Zorg dat je dit ID in je HTML hebt
-    const iconFile = document.getElementById('icon-input').files[0];
+    const appId = document.getElementById('app-id').value;
     const status = document.getElementById('status');
 
-    // Validatie: check of de belangrijkste velden zijn ingevuld
     if (!url || !name || !appId) {
-        alert("Vul a.u.b. alle velden in (URL, Naam en App ID)!");
+        alert("Vul a.u.b. alle velden in!");
         return;
     }
 
-    status.innerHTML = "⏳ <b>Bezig...</b> Je Chromebook (Linux) clonet nu de GitHub repo en bouwt de Android-structuur.";
-    status.style.color = "#38bdf8";
+    status.innerHTML = "⏳ Verbinding maken met je Chromebook Linux server...";
 
-    // We gebruiken FormData omdat we ook een bestand (icoon) willen versturen
-    const formData = new FormData();
-    formData.append('repoUrl', url);
-    formData.append('appName', name);
-    formData.append('appId', appId);
-    if (iconFile) {
-        formData.append('appIcon', iconFile);
-    }
-
+    // We sturen de opdracht naar je eigen Linux-omgeving op je Chromebook
     try {
-        // We maken verbinding met je eigen lokale server op poort 3000
         const response = await fetch('http://localhost:3000/build', {
             method: 'POST',
-            body: formData // FormData regelt zelf de headers
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                repoUrl: url,
+                appName: name,
+                appId: appId
+            })
         });
 
         const result = await response.json();
 
         if (response.ok) {
-            status.innerHTML = `
-                <div style="background: rgba(0, 255, 150, 0.2); padding: 15px; border-radius: 8px; border: 1px solid #00ffaa;">
-                    ✅ <b>Succes!</b><br>
-                    Project aangemaakt in: <br>
-                    <code>${result.location}</code><br><br>
-                    <b>Volgende stap:</b> Open Android Studio op je Chromebook en kies 'Open Project'.
-                </div>
-            `;
+            status.innerHTML = `✅ <b>Succes!</b><br>Project staat klaar in Linux map:<br><code>${result.location}</code>`;
         } else {
-            throw new Error(result.error || "Onbekende fout tijdens de build.");
+            status.innerHTML = "❌ Fout: De server kon het project niet clonen.";
         }
-
     } catch (error) {
-        console.error("Build fout:", error);
-        status.innerHTML = `<span style="color: #ff4d4d;">❌ <b>Fout:</b> De server reageert niet. Heb je 'node server.js' gestart in je Linux terminal?</span>`;
+        status.innerHTML = "❌ <b>Server offline!</b><br>Open je Terminal en typ: <code>node server.js</code>";
     }
 }
