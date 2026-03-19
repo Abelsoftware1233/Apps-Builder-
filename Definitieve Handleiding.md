@@ -55,3 +55,25 @@ app.post('/build', (req, res) => {
 app.listen(3000, () => console.log("\x1b[32m✔ Luxe Builder actief op poort 3000\x1b[0m"));
 
 
+Stap 2: Je Chromebook instellen voor Sideloading
+Chromebooks kunnen Android-apps installeren zonder de Play Store, maar je moet dit wel even aanzetten:
+Ga naar Instellingen > Apps > Google Play Store.
+Klik op Android-voorkeuren beheren.
+Ga naar Beveiliging (of Systeem) > Onbekende apps installeren.
+Zet de schakelaar aan voor je Browser (Chrome) en je Bestanden-app.
+Stap 3: De APK op je telefoon krijgen (Draadloos & Gratis)
+Sinds je alles zelf wilt doen zonder tussenkomst van clouddiensten, is dit de meest luxe "hacker" manier:
+Draai je server: Zorg dat node server.js actief is in de Linux terminal.
+Vind je IP-adres: Typ in de Linux terminal: hostname -I. Je ziet een nummer zoals 192.168.1.15.
+Op je telefoon: Open de browser op je Android-telefoon en typ dat nummer in met de poort, bijvoorbeeld: http://192.168.1.15:3000.
+Downloaden: Je ziet nu je eigen interface op je telefoon. Klik op de convert-knop en daarna op de download-link die verschijnt.
+Hoe ziet je workflow er nu uit?
+Code: Je typt je GitHub URL in op je eigen website.
+Build: Je Chromebook Linux-omgeving clonet de code en bereidt het Android-project voor.
+Compile: Je klikt in Android Studio (op je Chromebook) op "Build APK".
+Install: Je downloadt de APK direct via je eigen lokale netwerk op je telefoon.
+Laatste Tip: Bestanden delen
+Om je Linux-bestanden makkelijk te vinden in de normale Chromebook "Bestanden" app:
+Open de Bestanden app.
+Klik met de rechtermuisknop op de map Linux-bestanden.
+Kies Delen met Google Drive of zorg dat ze gewoon zichtbaar zijn in de zijbalk onder "Linux-bestanden". Zo kun je de APK handmatig naar je telefoon slepen als je een USB-kabel gebruikt.
