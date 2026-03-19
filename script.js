@@ -1,40 +1,45 @@
-document.getElementById('convert-btn').addEventListener('click', async () => {
-    const repoUrl = document.getElementById('github-url').value;
-    const appId = document.getElementById('app-id').value;
-    const iconFile = document.getElementById('app-icon').files[0];
-    const status = document.getElementById('status-log');
+// Preview van icoon
+document.getElementById('icon-input').onchange = function(evt) {
+    const [file] = this.files;
+    if (file) {
+        document.getElementById('preview').innerHTML = `<img src="${URL.createObjectURL(file)}">`;
+    }
+};
 
-    if (!repoUrl || !appId) {
-        status.innerHTML = "<span style='color:red;'>Vul alle velden in!</span>";
+async function generateApp() {
+    const url = document.getElementById('github-link').value;
+    const name = document.getElementById('app-name').value;
+    const status = document.getElementById('status');
+
+    if (!url || !name) {
+        alert("Vul alles in!");
         return;
     }
 
-    // Gebruik FormData om zowel tekst als het bestand te versturen
-    const formData = new FormData();
-    formData.append('repoUrl', repoUrl);
-    formData.append('appId', appId);
-    formData.append('appName', "EchoGeneratedApp");
-    if (iconFile) {
-        formData.append('appIcon', iconFile);
-    }
+    status.innerHTML = "⏳ Bezig met voorbereiden...";
 
-    status.innerHTML = "<strong>Bezig...</strong> De server clonet nu je repo en bouwt de Android-bestanden.";
+    // Omdat we geen server hebben, maken we een 'App Manifest' 
+    // Dit is een JSON bestand dat Android begrijpt.
+    const appConfig = {
+        "name": name,
+        "start_url": url,
+        "display": "standalone",
+        "orientation": "portrait",
+        "platform": "android"
+    };
 
-    try {
-        const response = await fetch('http://localhost:3000/convert', {
-            method: 'POST',
-            body: formData // Geen headers nodig, FormData doet dit zelf
-        });
-
-        const result = await response.json();
-        status.innerHTML = `
-            <div class="success-box">
-                <strong>Klaar!</strong><br>
-                App ID: ${result.appId}<br>
-                Project staat klaar in: <br><code>${result.path}</code>
-            </div>
-        `;
-    } catch (error) {
-        status.innerHTML = "<span style='color:red;'>Fout: Kan geen verbinding maken met de server.</span>";
-    }
-});
+    // We maken een downloadbaar bestand voor je aan direct in de browser
+    const blob = new Blob([JSON.stringify(appConfig, null, 2)], {type : 'application/json'});
+    const downloadUrl = URL.createObjectURL(blob);
+    
+    const link = document.createElement('a');
+    link.href = downloadUrl;
+    link.download = "android-config.json";
+    
+    setTimeout(() => {
+        status.innerHTML = "✅ Configuratie gegenereerd!<br>Download start nu...";
+        link.click();
+        
+        status.innerHTML += "<br><br><strong>Stap 2:</strong> Ga naar een online builder (zoals PWA2APK) en upload dit bestand.";
+    }, 1500);
+}
