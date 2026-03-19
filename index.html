@@ -2,35 +2,79 @@
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Echo No-Server App Converter</title>
+    <title>Echo Pro App Converter</title>
     <style>
-        body { font-family: sans-serif; background: #121212; color: white; text-align: center; padding: 50px; }
-        .card { background: #1e1e1e; padding: 30px; border-radius: 15px; display: inline-block; width: 350px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        input { width: 90%; padding: 10px; margin: 10px 0; border-radius: 5px; border: none; }
-        button { width: 95%; padding: 12px; background: #00cf71; border: none; color: white; font-weight: bold; cursor: pointer; border-radius: 5px; }
-        #status { margin-top: 20px; color: #aaa; font-size: 14px; }
-        .icon-preview { width: 80px; height: 80px; border: 2px dashed #444; margin: 10px auto; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        img { max-width: 100%; }
+        :root { --primary: #00d2ff; --bg: #0f0c29; }
+        body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(to right, #24243e, #302b63, #0f0c29); color: white; display: flex; justify-content: center; padding: 50px; }
+        .glass-card { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); padding: 40px; border-radius: 20px; width: 450px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        h1 { color: var(--primary); text-shadow: 0 0 10px var(--primary); margin-top: 0; }
+        input { width: 100%; padding: 12px; margin: 15px 0; border-radius: 8px; border: none; background: rgba(0,0,0,0.3); color: white; box-sizing: border-box; }
+        .btn { width: 100%; padding: 15px; background: var(--primary); border: none; border-radius: 8px; color: #000; font-weight: bold; cursor: pointer; font-size: 16px; transition: 0.3s; }
+        .btn:hover { transform: scale(1.02); box-shadow: 0 0 20px var(--primary); }
+        .loader { display: none; margin-top: 20px; border: 4px solid #f3f3f3; border-top: 4px solid var(--primary); border-radius: 50%; width: 30px; height: 30px; animation: spin 2s linear infinite; margin-left: auto; margin-right: auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        #status { margin-top: 20px; text-align: center; font-size: 14px; color: #00ffaa; }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <h2>Echo App Geyser</h2>
-    <p>Zet GitHub om naar Android</p>
+<div class="glass-card">
+    <h1>Echo Pro Builder</h1>
+    <p>Convert GitHub naar Native Android APK</p>
     
-    <input type="url" id="github-link" placeholder="GitHub URL (bijv. https://...)">
-    <input type="text" id="app-name" placeholder="Naam van je App">
+    <input type="text" id="repo" placeholder="GitHub URL (https://...)">
+    <input type="text" id="name" placeholder="App Naam (bijv. MySuperApp)">
+    <input type="text" id="id" placeholder="App ID (bijv. com.echo.app)">
     
-    <div class="icon-preview" id="preview">Icoon</div>
-    <input type="file" id="icon-input" accept="image/*">
-
-    <button onclick="generateApp()">Maak Android App</button>
+    <button class="btn" onclick="startLuxeBuild()">GENEREER & DOWNLOAD APK</button>
     
+    <div class="loader" id="loader"></div>
     <div id="status"></div>
 </div>
 
-<script src="script.js"></script>
+<script>
+async function startLuxeBuild() {
+    const status = document.getElementById('status');
+    const loader = document.getElementById('loader');
+    
+    const payload = {
+        repoUrl: document.getElementById('repo').value,
+        appName: document.getElementById('name').value,
+        appId: document.getElementById('id').value
+    };
+
+    if(!payload.repoUrl || !payload.appName) return alert("Vul alles in!");
+
+    status.innerText = "⏳ Bezig met compileren van APK... Dit duurt even.";
+    loader.style.display = "block";
+
+    try {
+        const response = await fetch('http://localhost:3000/convert-and-download', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(payload)
+        });
+
+        if (response.ok) {
+            const blob = await response.blob();
+            const downloadUrl = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = downloadUrl;
+            a.download = `${payload.appName}.apk`;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            status.innerText = "✅ APK Succesvol gedownload!";
+        } else {
+            status.innerText = "❌ Fout tijdens het bouwen. Check de server console.";
+        }
+    } catch (e) {
+        status.innerText = "❌ Kan server niet bereiken.";
+    } finally {
+        loader.style.display = "none";
+    }
+}
+</script>
+
 </body>
 </html>
