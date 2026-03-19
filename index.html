@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Echo App Converter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Android App Converter</h1>
+        <p>Convert your GitHub Web Project to a Native Android APK</p>
+        
+        <div class="input-group">
+            <label for="github-url">GitHub Repository URL:</label>
+            <input type="url" id="github-url" placeholder="https://github.com/user/repo" required>
+        </div>
+
+        <div class="input-group">
+            <label for="app-icon">Select App Icon (PNG/JPG):</label>
+            <input type="file" id="app-icon" accept="image/*">
+            <div id="icon-preview"></div>
+        </div>
+
+        <button id="convert-btn">Generate Android Project</button>
+        
+        <div id="status-log"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
