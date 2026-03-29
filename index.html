@@ -29,6 +29,13 @@
             <label for="app-id">App ID</label>
             <input type="text" id="app-id" placeholder="com.echo.app" autocapitalize="none">
         </div>
+
+        <div class="input-group">
+            <label for="icon-input">App Icoon (Optioneel)</label>
+            <input type="file" id="icon-input" accept="image/*">
+            <div id="preview" style="margin-top: 15px; display: flex; justify-content: center; min-height: 20px;">
+                </div>
+        </div>
         
         <button id="build-btn" onclick="buildNow()">
             <span>PROJECT GENEREREN</span>
