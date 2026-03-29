@@ -1,3 +1,4 @@
+/* 1. Variabelen & Reset */
 :root {
     --primary: #38bdf8;
     --primary-hover: #7dd3fc;
@@ -11,14 +12,16 @@
 
 * {
     box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent; /* Verwijdert blauwe flits op mobiel */
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
 }
 
+/* 2. Body & Achtergrond */
 body {
     font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     background: radial-gradient(circle at top right, #1e293b, #0f172a);
     color: var(--text-main);
-    margin: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -26,6 +29,7 @@ body {
     padding: 20px;
 }
 
+/* 3. Layout Elementen */
 .container {
     width: 100%;
     max-width: 480px;
@@ -49,7 +53,6 @@ header {
 h1 {
     font-size: 24px;
     font-weight: 800;
-    margin: 0;
     background: linear-gradient(to right, #38bdf8, #818cf8);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -64,6 +67,7 @@ h1 {
     letter-spacing: 1px;
 }
 
+/* 4. Formulieren & Inputs */
 .input-group {
     margin-bottom: 20px;
 }
@@ -77,10 +81,11 @@ label {
     margin-left: 4px;
 }
 
-input {
+input[type="text"], 
+input[type="url"] {
     width: 100%;
     padding: 14px 16px;
-    font-size: 16px; /* Voorkomt inzoomen op iPhone */
+    font-size: 16px;
     background: var(--input-bg);
     border: 1px solid var(--border);
     border-radius: 12px;
@@ -94,6 +99,35 @@ input:focus {
     box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
 }
 
+/* 5. Speciale File Input Styling */
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    color: var(--text-dim);
+    background: var(--input-bg);
+    border: 1px dashed var(--border);
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+input[type="file"]::file-selector-button {
+    background: var(--border);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin-right: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+input[type="file"]::file-selector-button:hover {
+    background: #475569;
+}
+
+/* 6. Knoppen & Interactie */
 button {
     width: 100%;
     padding: 16px;
@@ -117,6 +151,7 @@ button:hover {
     box-shadow: 0 10px 15px -3px rgba(56, 189, 248, 0.3);
 }
 
+/* 7. Feedback & Animaties */
 .status-container {
     margin-top: 25px;
     font-size: 14px;
@@ -136,18 +171,13 @@ button:hover {
     animation: spin 1s linear infinite;
 }
 
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
-
+@keyframes spin { to { transform: rotate(360deg); } }
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Touch-specifieke optimalisatie */
+/* 8. Mobiele Aanpassingen */
 @media (max-width: 480px) {
-    .card {
-        padding: 30px 20px;
-    }
+    .card { padding: 30px 20px; }
 }
