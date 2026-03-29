@@ -1,67 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang="nl">
 <head>
-    <title>Chromebook App Builder</title>
-    <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #0f172a; color: white; display: flex; justify-content: center; padding: 40px; }
-        .card { background: #1e293b; padding: 30px; border-radius: 20px; width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid #334155; }
-        h2 { color: #38bdf8; margin-top: 0; }
-        input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: white; box-sizing: border-box; }
-        button { width: 100%; padding: 15px; background: #38bdf8; color: #0f172a; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px; transition: 0.3s; }
-        button:hover { background: #7dd3fc; transform: translateY(-2px); }
-        #status { margin-top: 20px; font-size: 14px; color: #94a3b8; line-height: 1.6; }
-        .loader { display: none; border: 3px solid #f3f3f3; border-top: 3px solid #38bdf8; border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite; margin: 10px auto; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Chromebook Android App Builder</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="card">
-    <h2>Android App Pro Builder</h2>
-    <p>Chromebook Edition</p>
-    
-    <input type="text" id="repo" placeholder="GitHub Repository URL">
-    <input type="text" id="name" placeholder="App Naam">
-    <input type="text" id="app-id" placeholder="App ID (bijv. com.echo.app)">
-    
-    <button onclick="buildNow()">PROJECT GENEREREN</button>
-    
-    <div class="loader" id="loader"></div>
-    <div id="status"></div>
+<div class="container">
+    <div class="card">
+        <header>
+            <h1>Android App Pro Builder</h1>
+            <p class="subtitle">Chromebook Edition</p>
+        </header>
+        
+        <div class="input-group">
+            <label for="repo">GitHub Repository</label>
+            <input type="url" id="repo" placeholder="https://github.com/gebruiker/repo" inputmode="url">
+        </div>
+
+        <div class="input-group">
+            <label for="name">App Naam</label>
+            <input type="text" id="name" placeholder="Mijn Geweldige App">
+        </div>
+
+        <div class="input-group">
+            <label for="app-id">App ID</label>
+            <input type="text" id="app-id" placeholder="com.echo.app" autocapitalize="none">
+        </div>
+        
+        <button id="build-btn" onclick="buildNow()">
+            <span>PROJECT GENEREREN</span>
+        </button>
+        
+        <div id="loader" class="loader"></div>
+        <div id="status" class="status-container"></div>
+    </div>
 </div>
 
-<script>
-async function buildNow() {
-    const status = document.getElementById('status');
-    const loader = document.getElementById('loader');
-    
-    const data = {
-        repoUrl: document.getElementById('repo').value,
-        appName: document.getElementById('name').value,
-        appId: document.getElementById('app-id').value
-    };
-
-    if(!data.repoUrl || !data.appName) return alert("Vul a.u.b. alles in!");
-
-    status.innerHTML = "⏳ Linux bouwt nu je project mappen...";
-    loader.style.display = "block";
-
-    try {
-        const res = await fetch('http://localhost:3000/build', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(data)
-        });
-        const result = await res.json();
-        
-        status.innerHTML = `✅ <b>Klaar!</b><br>Je project staat in de Linux-map:<br><small>${result.location}</small><br><br>Open nu Android Studio om de APK te bakken!`;
-    } catch (e) {
-        status.innerHTML = "❌ Fout: Start eerst 'node server.js' in je terminal!";
-    } finally {
-        loader.style.display = "none";
-    }
-}
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
