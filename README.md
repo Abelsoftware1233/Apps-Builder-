@@ -7,8 +7,6 @@ sudo apt update
 
 sudo apt install -y nodejs npm git
 
-openjdk-17-jdk
-
 Hoe krijg je dit werkend op je Chromebook?
 
 Linux Terminal: Open je Terminal en installeer de tools (als je dat nog niet gedaan had):
