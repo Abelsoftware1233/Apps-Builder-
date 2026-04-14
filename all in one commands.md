@@ -54,7 +54,7 @@ package.json: De lijst met benodigde softwarepakketten.
 /mijn_apps: Hier worden je gegenereerde Android-projecten opgeslagen.
 
 ⚖️ Licentie & Eigendom
-Dit systeem is gebouwd voor de Echo AI Repository. Je bent volledig eigenaar van je eigen code en de gegenereerde apps. Geen externe API's of betaalde diensten nodig.
+Dit systeem is gebouwd voor de  Repository. ik ben volledig eigenaar van je eigen code en de gegenereerde apps. Geen externe API's of betaalde diensten nodig.
 
 
 ### Hoe voeg je dit toe?
