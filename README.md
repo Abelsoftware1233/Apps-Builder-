@@ -1,25 +1,15 @@
-# Apps-Builder-
-Repository for he apps builder
-
-Bash:
-
-sudo apt update
-
-sudo apt install -y nodejs npm git
-
-Hoe krijg je dit werkend op je Chromebook?
-
-Linux Terminal: Open je Terminal en installeer de tools (als je dat nog niet gedaan had):
-sudo apt install nodejs npm git
-Server starten: Ga naar de map met je bestanden en typ:
-npm install express cors
-node server.js
-Bouwen: Open de index.html en klik op de knop.
-De APK: Omdat je op een Chromebook zit, is de meest stabiele manier om nu de gratis Android Studio voor ChromeOS te openen. Kies "Open Project" en selecteer de map die je script zojuist heeft gemaakt. Klik op Build > Build APK.
-Waarom dit beter is: Je bent nu 100% eigenaar van je eigen code. Geen vage websites, geen verborgen kosten, en het draait allemaal lokaal op je Chromebook Linux-omgeving!
-
-Hoe gebruik je dit op je Chromebook?
-
-Zorg dat je in je index.html de IDs correct hebt (github-link, app-name, app-id, icon-input, status).
-Zorg dat je de server.js (die ik eerder gaf) hebt draaien in je Linux Terminal met het commando node server.js.
-Zodra je op de knop drukt, maakt je Chromebook in de Linux-bestanden een complete map aan die klaar is voor Android Studio.
+Hier zijn alle 5 bestanden! Zet ze in één map en open index.html in je browser. Dit is wat de app doet:
+3-staps wizard:
+Stap 1 — GitHub repo / leeg project / template, app naam, package ID, SDK versies, icoon upload
+Stap 2 — Features (camera, locatie, Firebase, Bluetooth, biometrie…), architectuur (MVVM/Clean/MVC), Kotlin of Java
+Stap 3 — Samenvatting + project genereren
+Wat er echt gegenereerd wordt (downloadbare ZIP):
+settings.gradle.kts, build.gradle.kts (root + app)
+AndroidManifest.xml met de juiste permissies
+MainActivity.kt (of .java)
+MainViewModel.kt bij MVVM, repository + usecase bij Clean Architecture
+activity_main.xml, strings.xml, colors.xml, themes.xml
+gradle/libs.versions.toml (version catalog)
+README.md + .gitignore
+Python CLI (generate_project.py) voor wie liever via de terminal werkt:
+Bash
