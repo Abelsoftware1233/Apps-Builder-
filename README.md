@@ -1,4 +1,4 @@
-Hier zijn alle 5 bestanden! Zet ze in één map en open index.html in je browser. Dit is wat de app doet:
+ Zet ze in één map en open index.html in je browser. Dit is wat de app doet:
 3-staps wizard:
 Stap 1 — GitHub repo / leeg project / template, app naam, package ID, SDK versies, icoon upload
 Stap 2 — Features (camera, locatie, Firebase, Bluetooth, biometrie…), architectuur (MVVM/Clean/MVC), Kotlin of Java
