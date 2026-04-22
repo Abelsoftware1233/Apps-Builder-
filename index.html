@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Android App Pro Builder</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="scanline"></div>
+
+  <div class="container">
+    <header>
+      <div class="logo-badge">APB</div>
+      <h1>Android App Pro Builder</h1>
+      <p class="edition">✦ CHROMEBOOK EDITION ✦</p>
+    </header>
+
+    <div class="card" id="mainCard">
+
+      <!-- STAP 1 -->
+      <div class="step active" id="step1">
+        <div class="step-label"><span>01</span> Projectbron</div>
+
+        <div class="source-tabs">
+          <button class="tab active" data-tab="github">GitHub Repo</button>
+          <button class="tab" data-tab="blank">Leeg Project</button>
+          <button class="tab" data-tab="template">Template</button>
+        </div>
+
+        <div class="tab-content active" id="tab-github">
+          <label>GitHub Repository URL</label>
+          <div class="input-wrap">
+            <span class="input-icon">⎇</span>
+            <input type="text" id="repoUrl" placeholder="https://github.com/gebruiker/repo" />
+          </div>
+          <div class="hint">Ondersteunt publieke en private repos (met token)</div>
+          <label>GitHub Token (optioneel, voor private repos)</label>
+          <div class="input-wrap">
+            <span class="input-icon">🔑</span>
+            <input type="password" id="githubToken" placeholder="ghp_xxxxxxxxxxxx" />
+          </div>
+        </div>
+
+        <div class="tab-content" id="tab-blank">
+          <div class="blank-info">
+            <div class="blank-icon">📱</div>
+            <p>Start met een leeg Android-project. We genereren de volledige projectstructuur automatisch.</p>
+          </div>
+        </div>
+
+        <div class="tab-content" id="tab-template">
+          <label>Kies een template</label>
+          <div class="template-grid">
+            <div class="template-card selected" data-tpl="basic">
+              <div class="tpl-icon">📦</div>
+              <div class="tpl-name">Basic App</div>
+            </div>
+            <div class="template-card" data-tpl="material">
+              <div class="tpl-icon">🎨</div>
+              <div class="tpl-name">Material 3</div>
+            </div>
+            <div class="template-card" data-tpl="bottom-nav">
+              <div class="tpl-icon">🧭</div>
+              <div class="tpl-name">Bottom Nav</div>
+            </div>
+            <div class="template-card" data-tpl="login">
+              <div class="tpl-icon">🔐</div>
+              <div class="tpl-name">Login Flow</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <div class="field">
+            <label>App Naam</label>
+            <div class="input-wrap">
+              <span class="input-icon">📱</span>
+              <input type="text" id="appName" placeholder="Mijn Geweldige App" />
+            </div>
+          </div>
+          <div class="field">
+            <label>App ID (Package Name)</label>
+            <div class="input-wrap">
+              <span class="input-icon">🆔</span>
+              <input type="text" id="appId" placeholder="com.echo.app" />
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <div class="field">
+            <label>Min SDK versie</label>
+            <select id="minSdk">
+              <option value="21">API 21 – Android 5.0 (Lollipop)</option>
+              <option value="23">API 23 – Android 6.0 (Marshmallow)</option>
+              <option value="26" selected>API 26 – Android 8.0 (Oreo)</option>
+              <option value="28">API 28 – Android 9.0 (Pie)</option>
+              <option value="30">API 30 – Android 11</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Target SDK</label>
+            <select id="targetSdk">
+              <option value="33">API 33 – Android 13</option>
+              <option value="34" selected>API 34 – Android 14</option>
+              <option value="35">API 35 – Android 15</option>
+            </select>
+          </div>
+        </div>
+
+        <label>App Icoon (Optioneel)</label>
+        <div class="file-drop" id="fileDrop">
+          <input type="file" id="iconFile" accept="image/*" hidden />
+          <div class="file-inner" onclick="document.getElementById('iconFile').click()">
+            <div class="file-icon" id="iconPreview">🖼️</div>
+            <div class="file-text">Sleep een icoon hier of <span class="link">klik om te kiezen</span></div>
+            <div class="file-sub">PNG/JPG, min 512×512px aanbevolen</div>
+          </div>
+        </div>
+
+        <button class="btn-next" onclick="goToStep(2)">Volgende: Features ➜</button>
+      </div>
+
+      <!-- STAP 2 -->
+      <div class="step" id="step2">
+        <div class="step-label"><span>02</span> Functies & Permissies</div>
+
+        <label>Selecteer features</label>
+        <div class="feature-grid">
+          <label class="feat-check"><input type="checkbox" id="feat-internet" checked/><span class="feat-box">🌐 Internet</span></label>
+          <label class="feat-check"><input type="checkbox" id="feat-camera"/><span class="feat-box">📷 Camera</span></label>
+          <label class="feat-check"><input type="checkbox" id="feat-storage"/><span class="feat-box">💾 Opslag</span></label>
+          <label class="feat-check"><input type="checkbox" id="feat-location"/><span class="feat-box">📍 Locatie</span></label>
+          <label class="feat-check"><input type="checkbox" id="feat-push"/><span class="feat-box">🔔 Push notifs</span></label>
+          <label class="feat-check"><input type="checkbox" id="feat-bluetooth"/><span class="feat-box">📶 Bluetooth</span></label>
+          <label class="feat-check"><input type="checkbox" id="feat-biometric"/><span class="feat-box">🪪 Biometrie</span></label>
+          <label class="feat-check"><input type="checkbox" id="feat-firebase"/><span class="feat-box">🔥 Firebase</span></label>
+        </div>
+
+        <label>Architectuur</label>
+        <div class="arch-select">
+          <label class="arch-opt"><input type="radio" name="arch" value="mvvm" checked/><span>MVVM</span></label>
+          <label class="arch-opt"><input type="radio" name="arch" value="mvc"/><span>MVC</span></label>
+          <label class="arch-opt"><input type="radio" name="arch" value="clean"/><span>Clean Arch</span></label>
+          <label class="arch-opt"><input type="radio" name="arch" value="none"/><span>Geen</span></label>
+        </div>
+
+        <label>Programmeertaal</label>
+        <div class="lang-select">
+          <label class="lang-opt"><input type="radio" name="lang" value="kotlin" checked/><span class="lang-badge kotlin">Kotlin</span></label>
+          <label class="lang-opt"><input type="radio" name="lang" value="java"/><span class="lang-badge java">Java</span></label>
+        </div>
+
+        <div class="nav-btns">
+          <button class="btn-back" onclick="goToStep(1)">← Terug</button>
+          <button class="btn-next" onclick="goToStep(3)">Volgende: Bouwen ➜</button>
+        </div>
+      </div>
+
+      <!-- STAP 3 -->
+      <div class="step" id="step3">
+        <div class="step-label"><span>03</span> Project Genereren</div>
+
+        <div class="summary" id="summary"></div>
+
+        <div class="build-options">
+          <label class="build-check">
+            <input type="checkbox" id="opt-zip" checked/>
+            <span>📦 Genereer downloadbare ZIP</span>
+          </label>
+          <label class="build-check">
+            <input type="checkbox" id="opt-readme" checked/>
+            <span>📄 Voeg README.md toe</span>
+          </label>
+          <label class="build-check">
+            <input type="checkbox" id="opt-gitignore" checked/>
+            <span>🚫 Voeg .gitignore toe</span>
+          </label>
+        </div>
+
+        <div class="nav-btns">
+          <button class="btn-back" onclick="goToStep(2)">← Terug</button>
+          <button class="btn-generate" id="generateBtn" onclick="generateProject()">
+            <span id="genBtnText">⚡ PROJECT GENEREREN</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- RESULTAAT -->
+      <div class="step" id="stepResult">
+        <div class="success-banner">
+          <div class="success-icon">✅</div>
+          <h2>Project Gegenereerd!</h2>
+          <p id="resultAppName"></p>
+        </div>
+
+        <div class="file-tree" id="fileTree"></div>
+
+        <div class="download-section">
+          <button class="btn-download" id="downloadBtn">⬇ Download ZIP</button>
+          <button class="btn-copy-structure" onclick="copyStructure()">📋 Kopieer Structuur</button>
+        </div>
+
+        <div class="setup-guide">
+          <h3>🚀 Installatie-instructies</h3>
+          <div id="setupSteps"></div>
+        </div>
+
+        <button class="btn-restart" onclick="restartBuilder()">🔄 Nieuw Project</button>
+      </div>
+    </div>
+
+    <!-- Progress indicator -->
+    <div class="progress-bar">
+      <div class="prog-step active" data-step="1">1</div>
+      <div class="prog-line"></div>
+      <div class="prog-step" data-step="2">2</div>
+      <div class="prog-line"></div>
+      <div class="prog-step" data-step="3">3</div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
