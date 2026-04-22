@@ -13,3 +13,7 @@ gradle/libs.versions.toml (version catalog)
 README.md + .gitignore
 Python CLI (generate_project.py) voor wie liever via de terminal werkt:
 Bash
+
+python3 generate_project.py --name "Mijn App" --id com.mijn.app --features internet camera firebase
+# of met config bestand:
+python3 generate_project.py --config config.json
