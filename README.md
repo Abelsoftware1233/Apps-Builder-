@@ -42,7 +42,7 @@ pip install -r requirements.txt
 python3 app.py
 ```
 
-De server draait dan op `http://127.0.0.1:5000`. Open daarna `index.html` — de front-end
+De server draait dan op `http://127.0.0.1:5050`. Open daarna `index.html` — de front-end
 detecteert automatisch of hij op `localhost`/`127.0.0.1` draait en praat dan met de
 backend. Is de backend niet bereikbaar, dan valt de app automatisch terug op client-side
 generatie (er verschijnt een toast-melding).
