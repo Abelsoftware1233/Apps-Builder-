@@ -1,0 +1,9 @@
+{
+  "app_name": "Mijn Geweldige App",
+  "app_id": "com.mijn.app",
+  "lang": "kotlin",
+  "arch": "mvvm",
+  "min_sdk": 26,
+  "target_sdk": 34,
+  "features": ["internet", "camera", "firebase"]
+}
