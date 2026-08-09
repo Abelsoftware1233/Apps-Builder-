@@ -99,7 +99,7 @@ Store — daarvoor is een eigen release-keystore nodig.
 Voor productie: draai niet de Flask dev-server, maar gunicorn (zit al in `requirements.txt`):
 ```bash
 cd backend
-gunicorn -w 4 -b 0.0.0.0:5000 app:app
+gunicorn -w 4 -b 0.0.0.0:5050 app:app
 ```
 
 ## Python CLI
